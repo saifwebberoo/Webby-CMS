@@ -1,0 +1,155 @@
+<html>
+<head>
+<title>Unverse: a mighty small Javascript Library</title>
+<script type="text/javascript">var inf;function redden(l){l.style.color='red';}</script>
+<style>body{font:85% sans-serif} dt{font-weight:bold; margin-top:1em}
+#tit,#newsflash{background:yellow;border:1px solid #000} code{color:green}
+#drag_me{background:cyan;border:1px solid #000; width:20em;padding:1em; text-align:center}
+.menu, .menu ul {padding:0; margin:0; list-style:none; background:beige}
+.menu a {display:block; text-decoration:none; width:100%; }
+.menu li {float:left; width:10em; background:cyan; margin:2px; padding:0.5em}
+.menu li.hover {background:yellow}
+.menu li ul {position:absolute; width:10em; left:-999em}
+.menu li ul ul {margin:-1.5em 0 0 8em; border:1px solid black; width:auto; padding:0 .5em}
+.menu li.hover ul ul {left: -999em}
+.menu li:hover ul, .menu li, .menu li.hover ul, .menu li li.hover ul {left:auto;} </style>
+
+<script type="text/javascript" src="unverse.js"></script>
+</head>
+<body>
+<h1 id="tit" class="drag">Unverse: a mighty small Javascript Library</h1>
+<p id="summary"><a href="http://code.google.com/p/unverse/">Unverse</a> is a lightweight - absolutely tiny - collection of terse cross-browser javascript functions that perform common tasks, including a lightbox, ajax calls and drag and drop.
+It is open source and free under the MIT licence. It aims to minimise the amount of javascript needed to get stuff done, whilst trying to remove the hassle of getting your code to work with varying DOM implementations in different browsers. This is a common aim and there are a lot of ambitious and excellent libraries out there attempting the same sort thing. But, compared to Unverse, they are all enormous. If you need something more sophisticated than Unverse try <em>jQuery</em> or <em>MooTools</em>. If you want to use Unverse in conjunction with one of these libraries, it should not clash with them. </p>
+<p>Unverse works in all modern browsers, and Internet Explorer 6. <a href="http://code.google.com/p/unverse/downloads/list">Download Unverse</a>.</p>
+<p class="informal">Actually, it sounds more than a little pompous to describe a 5k javascript file(currently <strong>
+
+4997
+
+</strong>bytes) as a "library" or "framework", but if you think it is one then Unverse is the smallest javascript famework there is. Anyway, here's what Unverse does.</p>
+<p>You include the following in your HTML - it can go in the HEAD section, or add it to the end of your HTML, just before the closing tag for BODY:<br />
+<code>...&lt;script type="text/javascript" src="unverse.js">&lt;/script>&lt;/body></code>
+Placing scripts at the end of your HTML can speed up the display of your web page.</p>
+<p class="informal">This will give you access to a whole bunch of javascript functions that all start with "_." (underscore dot).</p>
+<dl id="function_list">
+<dt>_.$(id)</dt>
+ <dd>Returns the element with the id <em>id</em>. If <em>id</em> is not a string - e.g. it's the result of a previous call to _.$() then it returns itself.<br />
+Example: <code>alert(_.$('tit').innerHTML) </code><button onclick="alert(_.$('tit').innerHTML)">What's in the element with id='tit'?</button> (but see _.v() below)<br />
+<strong>Note that in all the following</strong>, where <em>element</em> is a parameter it can be supplied as an id or an object: it is not necessary to use _.$(l) as a parameter; but note _.e() and _.re() to attach and remove event need an object.</dd>
+<dt>CSS class "menu"</dt>
+ <dd>Dropdown menu support. Unverse automatically assigns a class of "hover" to list items (LI) within any element with a class of "menu" when the mouse hovers over them. The "hover" class is removed on mouseout. This enables you to build dropdown or flyout menus with CSS. Also known as Suckerfish menus. You can configure or translate the classname for "menu" to use with the <code>toHover</code> variable at the start of the script:e.g. <code>toHover="dropdown"</code>).
+<p>Example: 
+<ul id="egMenu" class="menu"> 
+ <li>Menu
+  <ul>
+   <li><a href="#summary">Summary</a></li>
+   <li><a href="#bottom">Bottom</a></li>
+  </ul></li>
+ <li>Code<ul>
+  <li>HTML<ul><pre>The HTML for this menu
+  (View Source in your browser)</pre></ul></li>
+  <li>CSS<ul><pre>The CSS for this menu:
+.menu, .menu ul {padding:0; margin:0; list-style:none; background:beige}
+.menu a {display:block; text-decoration:none; width:100%; }
+.menu li {float:left; width:10em; background:cyan; margin:2px; padding:0.5em}
+.menu li.hover {background:yellow}
+.menu li ul {position:absolute; width:10em; left:-999em}
+.menu li ul ul {margin:-2em 0 0 8em; border:1px solid black; width:30em}
+.menu li.hover ul ul {left: -999em}
+.menu li:hover ul, .menu li, .menu li.hover ul, .menu li li.hover ul {left:auto}</pre></ul></li>
+ </ul></li>
+</ul>
+</p>
+<br style="clear:left" /></dd>
+
+<dt>_.box(element,width,height,title)</dt>
+ <dd>A simple <strong>Lightbox</strong>.Pops up the <em>element</em> (e.g. a div or a paragraph) in a modal pseudo-window, optionally with <em>title</em>. If given, <em>title</em> can include HTML. If <em>id</em> is a url starting 'http:', it will pop up the web page. If width and height are omitted it will try to take the size from the element's style setting, falling back to 640x480.<br />
+Examples:<code>_.box('summary',350,250) </code><button onclick="_.box('summary',350,250)">A paragraph on this page</button>. <br />
+<code>_.box('http://abitabout.com',825,500,'aBitAbout') </code><button onclick="_.box('http://abitabout.com',825,500,'aBitAbout <button onclick=_.box()')">aBitAbout website</button>.
+<p><strong>Use CSS class "image": <code>a class='image'</code></strong> to make image links box their hrefs (you can configure the classname to use with the <code>toPop</code> variable at the start of the script:e.g. <code>toPop="pop_me"</code>). It will resize a pop-up if it is bigger than the current window. </p>
+Examples: <code>&lt;a class="image" title="Hot Air Balloon Festival" href="http://farm4.static.flickr.com/3552/3806347967_235d9a2553.jpg">Hot air balloons&lt;/a>.</code> or<br />
+<code>&lt;a class="image" title="Column detail from an Egyptian temple" href="http://farm4.static.flickr.com/3650/3308472501_ca5f307b4c_b.jpg">&lt;img src="http://farm4.static.flickr.com/3650/3308472501_ca5f307b4c_s.jpg" width="75" height="75" alt="In Egypt" /></code><br />
+<a class="image" title="Hot Air Balloon Festival" href="http://farm4.static.flickr.com/3552/3806347967_235d9a2553.jpg">Hot air balloons</a> or <a class="image" title="Column detail from an Egyptian temple" href="http://farm4.static.flickr.com/3650/3308472501_ca5f307b4c_b.jpg"><img src="http://farm4.static.flickr.com/3650/3308472501_ca5f307b4c_s.jpg" width="75" height="75" alt="In Egypt" /></a> (big image: 390k)</dd>
+
+<dt>_.dd{element,function}</dt>
+ <dd><strong>Drag and drop</strong>. Make <em>element</em> draggable with the mouse. On drop, the element that it is dropped onto is available as the <code>droppedOn</code> property of the dragged <em>element</em>. The second parameter, <em>function</em> is optional: if given it will; be executed when the element is dropped. It can be given as an inline function, as in the example, or as an unquoted function name.
+ <p>Example: <code>&lt;div id="drag_me" onclick="_.dd(this,function(){alert(_.$('drag_me').droppedOn.nodeName);})">&lt;h2>Click, then drag me!&lt;/h2>&lt;/div></code> </p>
+ <div id="drag_me" onclick="_.dd(this,function(){alert(_.$('drag_me').droppedOn.nodeName);})"><h2> Click, then Drag me!</h2>Where do I get dropped?</div>
+ <p><strong>Use CSS class "drag": <code>class='drag'</code></strong> to automatically make elements draggable (you can configure the classname to use with the<code>toDrag</code> variable at the start of the script:e.g. <code>toDrag="draggable_object"</code>).</p>
+<p>Example: <code>&lt;h1 id="tit" class="drag">Unverse: a mighty small Javascript Library&lt;/h1></code> - <span class="informal">at the top of the page, if you haven't moved it already!</span></p></dd>
+
+<dt>_.t(tag,element)</dt>
+ <dd>Shorthand for <em>getElementsByTagName</em>, plus a bit. Returns an array of elements of type <em>tag</em> that are descendents of <em>element</em>.  If <em>tag</em> is not given, returns all elements descended from <em>element</em>. If <em>element</em> is not given, starts at <em>document</em>.<br />
+ Example: <code>alert(_.t('DT','function_list').length) </code><button onclick="alert(_.t('DT','function_list').length)">How many functions in this list?</button></dd>
+ 
+<dt>_.c(classname,tag,element)</dt>
+ <dd>Cross-browser shorthand for getElementsByClassName. Returns an array of elements of type <em>tag</em> with class <em>classname</em> that are descendents of <em>element</em>. If <em>tag</em> is not given, returns all types. If <em>element</em> is not given, starts at <em>document</em>. <p class="informal">Yes, it even works on IE6!</p>
+ Example: <code>inf=_.c('informal'); for(i=0;i&lt;inf.length;i++){inf[i].style.fontFamily='cursive';} </code>  <button onclick="inf=_.c('informal'); for(i=0;i<inf.length;i++){inf[i].style.fontFamily='cursive';}">Change font of class='informal'</button> (but see <strong>_.all</strong> below for shorter version)</dd>
+
+ <dt>_.v(element)</dt>
+ <dd>Returns the <strong>value</strong> or content of <em>element</em>. If <em>element</em> is an INPUT or TEXTAREA it reurns its value, if it is a SELECT, it returns the value of the selected option, and for anything else it returns the innerHTML.<br />
+Example: <code>alert(_.v('tit')) </code><button onclick="alert(_.v('tit'))">What's in the element with id='tit'?</button> (An even shorter alternative to the first example on this list!) <br />
+OR <code>alert(_.v('color')) </code><select id="color"><option>Red</option><option>Purple</option><option>Green</option><option>Blue</option></select> <button onclick="alert(_.v('color'))">What color is selected?</button></dd>
+ 
+<dt>_.all(array,function)</dt>
+ <dd>Executes <em>function</em> on every item in <em>array</em>. <span class="informal">It's a bit like <em>for each</em>.</span><br />
+ Example: <code>function redden(el){el.style.color='red';}<br />_.all(_.t('DT'),redden) </code><button onclick="_.all(_.t('DT'),redden)">Redden</button><br />
+  or: <code>_.all(_.c('informal'),function(each){each.style.color='purple';}) </code><button onclick="_.all(_.c('informal'),function(each){each.style.color='purple';})">class=informal to purple</button></dd>
+
+<dt>_.s(element,x,y)</dt>
+ <dd>Show the <em>element</em>, optionally at co-ordinates <em>x,y</em>. <br />
+ Example: <code>_.s('tit',_.v('X'),_.v('Y')) </code><button onclick="_.s('tit',_.v('X'),_.v('Y'))">Show element 'tit' at</button> x=<input id="X" type="text" size="3" value="350" />, y=<input id="Y" type="text" size="3" value="1200" /></dd>
+
+<dt>_.h(element)</dt>
+ <dd>Hide the <em>element</em>.<br />
+ Example: <code>_.h('tit') </code><button onclick="_.h('tit') ">Hide element 'tit'</button></dd>
+<!-- 
+<dt>_.ce(id,tag)</dt>
+ <dd>Dynamically create an element with <em>id</em> of type <em>tag</em>. If <em>tag</em> is not supplied, a DIV is created. The new element is inserted at the start of the body.<br />
+ Example: <code>_.ce('new','H1'); _.$('new').innerHTML='Look:a New Element'; _.s('new',100,1200)">;</code> <button onclick="_.ce('new','H1');_.$('new').innerHTML='Look:a New Element';">Something New</button></dd>
+--> 
+<dt>_.gs(element,styleProperty)</dt>
+ <dd>Get the value of the <em>styleProperty</em> for <em>element</em>. Works even for styles set through a style sheet, or for computed values.<br />
+ Example:<code>_.gs('tit','backgroundColor')</code><button onclick="alert(_.gs('tit','backgroundColor'))">Get backgound color of element with id of 'tit'</button><br /> <span class="informal">(whereas <button onclick="alert(_.$('tit').style.backgroundColor)">_.$('tit').style.backgroundColor</button>...won't work)</span></dd>
+
+<dt>_.e(object,event,function)</dt>
+ <dd><strong>Attach <em>function</em></strong> so that it fires on <em>event</em> for <em>object</em>. Note, must take an object, not an id.<br />
+ Example:<code>_.e(window,'resize',recalcWidth)</code></dd>
+ 
+<dt>_.re(object,event,function)</dt>
+ <dd><strong>Remove<em>function</em></strong> for <em>event</em> on <em>object</em>. Note, must take an object, not an id.<br />
+ Example:<code>_.re(window,'resize',recalcWidth)</code></dd>
+
+<dt>_.wW()</dt>
+ <dd>Returns the window width, in pixels.<br />
+ Example: <code>alert(_.wW()) </code><button onclick="alert(_.wW())">Window Width</button></dd>
+ 
+<dt>_.wH()</dt>
+ <dd>Returns the window height, in pixels.<br />
+ Example: <code>alert(_.wH()) </code><button onclick="alert(_.wH())">Window Height</button></dd>
+ 
+<dt>_.dW()</dt>
+ <dd>Returns the document width, in pixels.<br />
+ Example: <code>alert(_.dW()) </code><button onclick="alert(_.dW())">Document Width</button></dd>
+ 
+<dt>_.dH()</dt>
+ <dd>Returns the document height, in pixels.<br />
+ Example: <code>alert(_.dH()) </code><button onclick="alert(_.dH())">Document Height</button></dd>
+ 
+<dt>_.sX()</dt>
+ <dd>Returns the amount scrolled left, in pixels.<br />
+ Example: <code>alert(_.sX()) </code><button onclick="alert(_.sX())">Scroll Left</button></dd>
+ 
+<dt>_.sY()</dt>
+ <dd>Returns the amount scrolled down, in pixels.<br />
+ Example: <code>alert(_.sY()) </code><button onclick="alert(_.sY())">Scroll Top</button></dd>
+
+<dt>_.ajx(url,element)</dt>
+ <dd>AJAX. Sends an asynchronous HTTP request to <em>url</em> (using <code>GET</code>). Script will continue processing. When a response is received from the server, it is copied into <em>element</em>, without the user refreshing the page. If <em>element</em> is not supplied the response is executed as javscript (using <code>eval</code>). Returns <em>false</em> if the browser does not support asynchronous requests.<br />
+ Example: <code>_.ajx('news.php','newsflash') </code> Note that <em>url</em> <strong>must be on the same server</strong>. <button onclick="_.ajx('news.php','newsflash')">News</button></dd> 
+</dl>
+<div id="newsflash">a div called "newsflash"</div>
+
+<h3 class="informal">Unverse: mighty small.</h3>
+<p id="bottom" class="informal">Yes, all this in only 5k of code!</p>
+</body>
+</html>

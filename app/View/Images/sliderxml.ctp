@@ -1,0 +1,46 @@
+<gallery>
+	<settings>
+		<imagesFolder>/uploads/<?php echo $dirPath;?>/croped_images/</imagesFolder>
+		<thumbnailsFolder>/uploads/<?php echo $dirPath;?>/croped_images/</thumbnailsFolder>
+
+		<imageAngle>60</imageAngle>
+		<useScrollBar>true</useScrollBar>
+		<slideShow>true</slideShow>
+		<slideShowDelay>3</slideShowDelay>
+		<flipDuration>1</flipDuration>
+		<flipSound>1</flipSound>
+		<startPosition>center</startPosition>
+		<reflectionAlpha>35</reflectionAlpha>
+		<useHighlight>true</useHighlight>
+
+		<maxImageWidth>420</maxImageWidth>
+   
+		<preloader stripesAlpha="45" barColor="0x000000" barAlpha="14" bgColor="0x000000" bgAlpha="10" innerShadow="20" dropShadow="30" />
+		<scrollbar bgColor="0x000000" bgAlpha="10" handleColor="0x000000" handleAlpha="16" arrowsColor="0x000000" arrowsAlpha="30" innerShadow="10" dropShadow="0" />
+		<caption textColor="0xffffff" bgColor="0x000000" bgAlpha="80" frameColor="0xffffff" frameAlpha="40" shadowAlpha="30" multilingual="false" multilingualFontSize="12" />
+	
+	</settings>
+	<items>
+		<?php
+			foreach($images as $img){
+		?>
+		<item source="<?php echo $img['Image']['image_name'];?>" thumb="<?php echo $img['Image']['image_name'];?>" description="<?php echo str_replace('"',"'",$img['Image']['name']);?>" link="#" target="_self" />
+		<?php
+			}
+		/*
+		<!--
+		<item source="1.jpg" thumb="t1.jpg" description="Description" link="" target="_blank"/>
+		<item source="2.jpg" thumb="t2.jpg" description="Description" link="" target="_blank"/>
+		<item source="3.jpg" thumb="t3.jpg" description="Description" link="" target="_blank"/>
+		<item source="4.jpg" thumb="t4.jpg" description="Description" link="" target="_blank"/>
+		<item source="5.jpg" thumb="t5.jpg" description="Description" link="" target="_blank"/>
+		<item source="6.jpg" thumb="t6.jpg" description="Description" link="" target="_self"/>
+		<item source="7.jpg" thumb="t7.jpg" description="Description" link="" target="_self"/>
+		<item source="8.jpg" thumb="t8.jpg" description="Description" link="" target="_self"/>
+		<item source="9.jpg" thumb="t9.jpg" description="Description" link="" target=""/>-->		
+		*/		
+		?>
+		
+	</items>
+
+</gallery>	

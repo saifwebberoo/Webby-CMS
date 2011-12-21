@@ -1,0 +1,26 @@
+body
+{
+    background-image:url("../images/bodyBG.png");
+    background-position:top;
+    background-repeat:repeat-x;
+    background-color:#000000;
+    margin: 0px;
+    font-size:62.5%;
+    font-family:Verdana, Arial, Sans-Serif;
+}
+
+img { border:none; }
+
+#window-container
+{
+    top:0px;
+    display:block;
+    width:100%;
+    position:relative;
+    display:block;
+    background-image:url("../images/logo.png");
+    background-repeat:no-repeat;
+    background-position:center 40%;
+    overflow:hidden;
+    z-index:1;
+}

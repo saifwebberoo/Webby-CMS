@@ -1,0 +1,1 @@
+<div id="simple-footer">	<span>Powered by&nbsp;&nbsp;<a href="http://www.webberoo.in">Webberoo.IN</a></span> </div>

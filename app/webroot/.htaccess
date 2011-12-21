@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php?/$1 [QSA,L]
+</IfModule>
+# Turn on Expires and set default to 0
+#ExpiresActive On
+#ExpiresDefault A0
+
+# Set up caching on media files for 1 year (forever?)
+#<FilesMatch "\.(flv|ico|pdf|avi|mov|ppt|doc|mp3|wmv|wav|png|jpg|jpeg|gif)$">
+#ExpiresDefault A29030400
+#Header append Cache-Control "public"
+#</FilesMatch>
