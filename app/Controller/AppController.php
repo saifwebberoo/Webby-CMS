@@ -19,7 +19,6 @@ class AppController extends Controller {
 		'RequestHandler',
 		'Session',
 		'Cookie',
-		'ArtistSession'
 		//,'DebugKit.Toolbar'
 	);
 	
@@ -52,11 +51,6 @@ class AppController extends Controller {
 
 		if($this->request->isAjax()){
 			$this->layout = 'ajax';
-		}
-		
-		
-		if(strpos($this->here, 'secured-artist') === true){
-			$this->ArtistSession->checkSession($this);
 		}
 		
 		if(!empty($this->request->params['prefix']) && $this->request->params['prefix']=='admin' && $this->request->params['admin']==1){
